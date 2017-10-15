@@ -1,8 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+
+import { Admin, Resource } from 'admin-on-rest';
+
+import restClient from './api/restClient';
+
 import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { Motorcycle } from './entities';
+
+render(
+  <Admin title="Lowside.io" restClient={restClient('http://localhost:1323')}>
+    <Resource
+      name="motorcycles"
+      list={Motorcycle.List}
+      edit={Motorcycle.Edit}
+      create={Motorcycle.Create}
+      show={Motorcycle.Show}
+      icon={Motorcycle.Icon}
+    />
+  </Admin>,
+  document.getElementById('root')
+);
+
 registerServiceWorker();
